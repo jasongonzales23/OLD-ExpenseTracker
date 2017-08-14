@@ -7,7 +7,7 @@ import {
   View
 } from 'react-native'
 import {
-  doThing
+  updateExpenseAmount
 } from '../actions/AppActions'
 
 
@@ -17,22 +17,26 @@ class ExpenseTracker extends Component {
   }
 
   componentDidMount() {
-    this.props.doThing()
   }
 
   render() {
     const {
-      foo,
-      bar
-    } = this.props.app
+      expenseAmount,
+      expenseDescription
+    } = this.props
 
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Add an expense
-        </Text>
-        <TextInput placeholder="Amount"/>
-        <TextInput placeholder="Description"/>
+          Add an expense </Text>
+        <TextInput
+          keyboardType={"numeric"}
+          onChangeText={this.props.updateExpenseAmount}
+          placeholder="Amount"
+        />
+        <TextInput
+          placeholder="Description"
+        />
       </View>
     )
   }
@@ -62,7 +66,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-  doThing
+  updateExpenseAmount
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseTracker)

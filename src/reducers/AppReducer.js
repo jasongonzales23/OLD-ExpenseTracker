@@ -1,18 +1,15 @@
 import { ActionTypes } from '../actions'
 
-export const initialState = {
-  foo: true,
-  bar: false,
+const initialState = {
+  expenseAmount: null,
+  expenseDescription: null,
 }
 
-export function AppReducer(state = initialState, action) {
-  switch (action.type) {
+const ACTION_HANDLERS = {
+  [ActionTypes.UPDATE_EXPENSE_AMOUNT]: (state, action) => ({ ...state, expenseAmount: action.payload})
+}
 
-    case ActionTypes.DO_THING: return {
-      ...state,
-      foo: false
-    }
-    default:
-      return state;
-  }
+export default function AppReducer(state = initialState, action) {
+  const handler = ACTION_HANDLERS[action.type]
+  return handler ? handler(state, action) : state
 }
